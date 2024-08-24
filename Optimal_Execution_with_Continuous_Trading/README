@@ -1,10 +1,12 @@
-A fundamental challenge in finance is how an agent can effectively buy or sell a large volume of shares while minimizing the adverse price movements caused by their own trades. This involves balancing a trade-off between **price impact** (trading quickly, which can move the market price) and **price risk** (taking longer, which can expose the agent to market fluctuations).
+## Overview
 
-### 1. **Understanding Execution Costs**
+A fundamental challenge in finance is how an agent can effectively buy or sell a large volume of shares while minimizing adverse price movements caused by their own trades. This involves balancing a trade-off between **price impact** (trading quickly, which can move the market price) and **price risk** (taking longer, which can expose the agent to market fluctuations).
+
+## Execution Costs
 
 **Execution cost** is defined as the difference between a benchmark price and the actual price (measured as the average price per share). When the benchmark is the asset's mid-price at the time the order is placed (known as the **arrival price**), this execution cost is referred to as the **implementation shortfall** or **slippage**.
 
-### 2. **Key Variables and Notations**
+## Key Variables and Notations
 
 - **\( V_t \)**: Trading rate
 - **\( Q_t \)**: Agent’s inventory
@@ -14,45 +16,69 @@ A fundamental challenge in finance is how an agent can effectively buy or sell a
 - **\( g \)**: Permanent price impact
 - **\( f \)**: Temporary price impact
 
-Price impact is often assumed to be linear with respect to trading speed: \( f(V_t) = k \cdot V_t \). It's important to note that price impact isn't constant throughout the day: it's highest in the morning, stabilizes during the day, and decreases toward market close.
+Price impact is often assumed to be linear with respect to trading speed: 
 
-### 3. **Formulas and Dynamics**
+\[
+f(V_t) = k \cdot V_t
+\]
 
-- **Inventory Control**: \( dQ_t = \pm V_t \cdot dt \)
-- **Mid-Price Process**: \( dS_t = \pm g(V_t) + O \cdot dW_t \)
-- **Execution Price**: \( \hat{S_t} = S_t \pm (\text{half spread} + f(V_t)) \)
-- **Cash Process**: \( dX_t = \hat{S_t} \cdot V_t \cdot dt \)
+Price impact varies throughout the day: it is highest in the morning, stabilizes during the day, and decreases toward market close.
 
-### 4. **Liquidation Strategies**
+## Formulas and Dynamics
 
-#### **4.1. Liquidation Without Penalties (Temporary Impact Only)**
+- **Inventory Control**:  
+  \[
+  dQ_t = \pm V_t \cdot dt
+  \]
+
+- **Mid-Price Process**:  
+  \[
+  dS_t = \pm g(V_t) + O \cdot dW_t
+  \]
+
+- **Execution Price**:  
+  \[
+  \hat{S_t} = S_t \pm (\text{half spread} + f(V_t))
+  \]
+
+- **Cash Process**:  
+  \[
+  dX_t = \hat{S_t} \cdot V_t \cdot dt
+  \]
+
+## Liquidation Strategies
+
+### 1. Liquidation Without Penalties (Temporary Impact Only)
+
 The agent uses market orders to liquidate \( n \) shares over a period from \( t=0 \) to \( T \). The optimal trading speed is:
 
 \[
 \text{Optimal speed} = \frac{n}{T}
 \]
 
-This approach follows the **Time-Weighted Average Price (TWAP)** strategy.
+This strategy follows the **Time-Weighted Average Price (TWAP)**.
 
-#### **4.2. Optimal Acquisition with Terminal Penalty and Temporary Impact**
-The agent can pursue strategies that may not fully meet the inventory target (\( Q_T < n \)). In such cases, any remaining shortfall is covered by a market order, incurring an additional penalty \( a \). The optimal trading speed is:
+### 2. Optimal Acquisition with Terminal Penalty and Temporary Impact
+
+The agent may use strategies that don't meet the total inventory target (\( Q_T < n \)). Any shortfall is covered by a market order, incurring an additional penalty \( a \). The optimal trading speed is:
 
 \[
 \text{Optimal speed} = \frac{n}{T + \frac{k}{a}}
 \]
 
-As the penalty \( a \) approaches infinity, this strategy also converges to the TWAP. Regardless of the values of \( a \) and \( k \), it's optimal to leave some shares for execution at the terminal date.
+As the penalty \( a \) approaches infinity, this strategy converges to TWAP. For any values of \( a \) and \( k \), it's optimal to leave some shares for execution at the terminal date.
 
-### 5. **Liquidation with Permanent Price Impact**
+## Liquidation with Permanent Price Impact
 
-In scenarios where both temporary and permanent price impacts are considered, along with a running inventory penalty, the optimal trading speed remains proportional to the current inventory level. However, the proportionality factor now depends non-linearly on time. This running inventory penalty isn't a direct financial cost but reflects the agent's urgency to complete the trade.
+When both temporary and permanent price impacts are considered, along with a running inventory penalty, the optimal trading speed is proportional to the current inventory level. However, the proportionality factor depends non-linearly on time. This inventory penalty reflects the agent's urgency to complete the trade and is not a direct financial cost.
 
-### 6. **Execution with Exponential Utility Maximization**
+## Execution with Exponential Utility Maximization
 
-So far, the agent has been considered risk-neutral, aiming to maximize expected terminal wealth. If the agent is risk-averse and follows an exponential utility function, their behavior is similar to a risk-neutral agent who is averse to holding inventory.
+If the agent is risk-neutral and aims to maximize expected terminal wealth, they will execute trades in a manner similar to a risk-averse agent who is inventory-averse. When considering risk aversion with exponential utility, the behavior aligns with that of a risk-neutral but inventory-averse agent.
 
-### 7. **Non-Linear Price Impact Models**
+## Non-Linear Price Impact Models
 
-While a linear price impact function is a common approximation, some studies suggest that a power-law model, with a power less than one, might better fit real market data. However, the complexity added by moving away from a linear model may not justify its use. As the power-law parameter decreases, implying less price impact for similar-sized orders, the agent tends to liquidate faster to minimize inventory risk without significantly increasing temporary market impact. Essentially, this behavior reflects a higher urgency to trade, even when using a linear impact model.
+Though a linear price impact function is common, some studies suggest that a power-law model (with a power less than one) may better reflect actual market data. However, the complexity of non-linear models might outweigh the benefits. As the power-law parameter decreases, implying less price impact for similar-sized orders, the agent tends to liquidate faster to minimize inventory risk without significantly increasing temporary market impact. Essentially, this makes the agent behave as if they have a higher urgency to trade, even when using a linear impact model.
+
 
 Source : Algorithmic and High-Frequency Trading (c) Cartea, Jaimungal, & Penalva, 2015 Cambridge University Press

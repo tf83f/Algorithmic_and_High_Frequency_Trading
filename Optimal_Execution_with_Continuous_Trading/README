@@ -80,5 +80,4 @@ If the agent is risk-neutral and aims to maximize expected terminal wealth, they
 
 Though a linear price impact function is common, some studies suggest that a power-law model (with a power less than one) may better reflect actual market data. However, the complexity of non-linear models might outweigh the benefits. As the power-law parameter decreases, implying less price impact for similar-sized orders, the agent tends to liquidate faster to minimize inventory risk without significantly increasing temporary market impact. Essentially, this makes the agent behave as if they have a higher urgency to trade, even when using a linear impact model.
 
-
 Source : Algorithmic and High-Frequency Trading (c) Cartea, Jaimungal, & Penalva, 2015 Cambridge University Press

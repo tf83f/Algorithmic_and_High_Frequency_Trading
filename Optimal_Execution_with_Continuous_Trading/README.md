@@ -67,7 +67,7 @@ This strategy follows the Time-Weighted Average Price (TWAP).
 The agent may use strategies that don't meet the total inventory target ($Q_T < n$). Any shortfall is covered by a market order, incurring an additional penalty $a$. The optimal trading speed is:
 
 $$
-\text{Optimal speed} = \frac{n}{T + \frac{a}{k}}
+\text{Optimal speed} = \frac{t n}{T + \frac{k}{a}}
 $$
 
 As the penalty $a$ approaches infinity, this strategy converges to TWAP. For any values of $a$ and $k$, it's optimal to leave some shares for execution at the terminal date.

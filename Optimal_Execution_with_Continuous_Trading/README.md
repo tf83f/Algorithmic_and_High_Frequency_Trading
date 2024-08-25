@@ -72,13 +72,13 @@ $$
 
 As the penalty $a$ approaches infinity, this strategy converges to TWAP. For any values of $a$ and $k$, it's optimal to leave some shares for execution at the terminal date.
 
-## Liquidation with Permanent Price Impact
+### 3. Liquidation with Permanent Price Impact
 
 The trade have both a temporary and a permanent price impact. There is also a running inventory penalty. This running inventory penalty is not (and should not be considered) a financial cost to the agent’s strategy. Rather it allows to incorporate the agent’s urgency for executing the trade.
 
 The optimal speed to trade is still proportional to the investor’s current inventory level, but now the proportionality factor depends non-linearly on time.
 
-## Execution with Exponential Utility Maximization
+### 4. Execution with Exponential Utility Maximization
 
 If the agent is risk-neutral and aims to maximize expected terminal wealth, they will execute trades in a manner similar to a risk-averse agent who is inventory-averse. When considering risk aversion with exponential utility, the behavior aligns with that of a risk-neutral but inventory-averse agent.
 

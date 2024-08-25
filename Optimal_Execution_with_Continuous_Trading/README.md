@@ -50,7 +50,7 @@ $$
 dX_t = \hat{S_t} \cdot V_t \cdot dt
 $$
 
-## Liquidation Strategies
+## Acquisition & Liquidation Strategies
 
 ### 1. Liquidation Without Penalties (Temporary Impact Only)
 
